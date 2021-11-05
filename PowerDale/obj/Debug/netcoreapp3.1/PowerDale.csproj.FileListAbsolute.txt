@@ -1,0 +1,14 @@
+C:\Users\dallamraju\source\repos\PowerDale\PowerDale\bin\Debug\netcoreapp3.1\PowerDale.exe
+C:\Users\dallamraju\source\repos\PowerDale\PowerDale\bin\Debug\netcoreapp3.1\PowerDale.deps.json
+C:\Users\dallamraju\source\repos\PowerDale\PowerDale\bin\Debug\netcoreapp3.1\PowerDale.runtimeconfig.json
+C:\Users\dallamraju\source\repos\PowerDale\PowerDale\bin\Debug\netcoreapp3.1\PowerDale.runtimeconfig.dev.json
+C:\Users\dallamraju\source\repos\PowerDale\PowerDale\bin\Debug\netcoreapp3.1\PowerDale.dll
+C:\Users\dallamraju\source\repos\PowerDale\PowerDale\bin\Debug\netcoreapp3.1\PowerDale.pdb
+C:\Users\dallamraju\source\repos\PowerDale\PowerDale\obj\Debug\netcoreapp3.1\PowerDale.csproj.AssemblyReference.cache
+C:\Users\dallamraju\source\repos\PowerDale\PowerDale\obj\Debug\netcoreapp3.1\PowerDale.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dallamraju\source\repos\PowerDale\PowerDale\obj\Debug\netcoreapp3.1\PowerDale.AssemblyInfoInputs.cache
+C:\Users\dallamraju\source\repos\PowerDale\PowerDale\obj\Debug\netcoreapp3.1\PowerDale.AssemblyInfo.cs
+C:\Users\dallamraju\source\repos\PowerDale\PowerDale\obj\Debug\netcoreapp3.1\PowerDale.csproj.CoreCompileInputs.cache
+C:\Users\dallamraju\source\repos\PowerDale\PowerDale\obj\Debug\netcoreapp3.1\PowerDale.dll
+C:\Users\dallamraju\source\repos\PowerDale\PowerDale\obj\Debug\netcoreapp3.1\PowerDale.pdb
+C:\Users\dallamraju\source\repos\PowerDale\PowerDale\obj\Debug\netcoreapp3.1\PowerDale.genruntimeconfig.cache
