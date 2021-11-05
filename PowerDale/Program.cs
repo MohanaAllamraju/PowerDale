@@ -6,7 +6,7 @@ namespace PowerDale
 {
     class Program
     {
-    static void Main()
+        static void Main()
         {
 
             Seed seed = new Seed();
@@ -54,13 +54,17 @@ namespace PowerDale
                     PeakTimeMultiplier = new List<PeakTimeMultiplier>()
                 }
             };
+            PricePlan price = new PricePlan();
 
             FindPricePlan("smart-meter-0", pricePlans);
             FindPricePlan("smart-meter-1", pricePlans);
             FindPricePlan("smart-meter-2", pricePlans);
             FindPricePlan("smart-meter-3", pricePlans);
             FindPricePlan("smart-meter-4", pricePlans);
+
+            calculateCost(electricityReadings, price);
         }
+
 
         static void FindPricePlan(string smartMeterId, List<PricePlan> pricePlans)
         {
@@ -74,23 +78,22 @@ namespace PowerDale
                 var priceplan = pricePlans.Find(e => e.EnergySupplier.Name == powerSupplier.Name);
                 Console.WriteLine("The price plan for " + smartMeterId + "the smartbox is :" +priceplan.UnitRate);
             }
-           
         }
 
-        private decimal calculateCost(List<ElectricityReadings> electricityReadings, PricePlan pricePlan)
+         static decimal calculateCost(List<ElectricityReadings> electricityReadings, PricePlan pricePlan)
         {
             var average = calculateAverageReading(electricityReadings);
             var timeElapsed = calculateTimeElapsed(electricityReadings);
             var averagedCost = average / timeElapsed;
             return averagedCost * pricePlan.UnitRate;
         }
-        private decimal calculateAverageReading(List<ElectricityReadings> electricityReadings)
+        static decimal calculateAverageReading(List<ElectricityReadings> electricityReadings)
         {
             var newSummedReadings = electricityReadings.Select(readings => readings.Reading).Aggregate((reading, accumulator) => reading + accumulator);
 
             return newSummedReadings / electricityReadings.Count();
         }
-        private decimal calculateTimeElapsed(List<ElectricityReadings> electricityReadings)
+         static decimal calculateTimeElapsed(List<ElectricityReadings> electricityReadings)
         {
             var first = electricityReadings.Min(reading => reading.Time);
             var last = electricityReadings.Max(reading => reading.Time);
