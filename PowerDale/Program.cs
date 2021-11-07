@@ -56,12 +56,12 @@ namespace PowerDale
             };
 
             Console.WriteLine("Press Y to view the last week's usage");
-            string input = Console.ReadLine();
             if (Console.ReadLine().Equals("y"))
             {
                 Console.WriteLine("Please enter your smart meter id");
                 string idInput = Console.ReadLine();
                 electricityReadings = showLastWeekUsage(idInput);
+                Console.WriteLine("The usage list for last week is : " + electricityReadings);
             }
             else
             {
@@ -120,19 +120,20 @@ namespace PowerDale
             return (decimal)(last - first).TotalHours;
          }
 
-        static List showLastWeekUsage(string idInput) 
+        static List<ElectricityReadings> showLastWeekUsage(string idInput) 
         {
             Seed seed = new Seed();
             if (seed.SmartMeterToPricePlanAccounts.ContainsKey(idInput))
             {
-               //ar supplierName = seed.SmartMeterToPricePlanAccounts[idInput];
-                MeterReadings readings = new MeterReadings();
-                if(idInput.Equals(readings.SmartMeterId))
-                {
-                    return readings.ElectricityReadings();
-                }
+                //ar supplierName = seed.SmartMeterToPricePlanAccounts[idInput];
+                    MeterReadings readings = new MeterReadings();
+                    List<ElectricityReadings> weekReadings = new List<ElectricityReadings>();
+                    weekReadings = readings.ElectricityReadings;
+                    return weekReadings;
+                
 
             }
+            return null;
            
         }
     }
