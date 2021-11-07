@@ -61,7 +61,10 @@ namespace PowerDale
                 Console.WriteLine("Please enter your smart meter id");
                 string idInput = Console.ReadLine();
                 electricityReadings = showLastWeekUsage(idInput);
-                Console.WriteLine("The usage list for last week is : " + electricityReadings);
+                for (int i = 0;  i <= electricityReadings.Count; i++)
+                {
+                    Console.WriteLine("The usage list for last week is : " + electricityReadings[i]);
+                }
             }
             else
             {
@@ -130,8 +133,6 @@ namespace PowerDale
                     List<ElectricityReadings> weekReadings = new List<ElectricityReadings>();
                     weekReadings = readings.ElectricityReadings;
                     return weekReadings;
-                
-
             }
             return null;
            
