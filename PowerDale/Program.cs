@@ -19,16 +19,16 @@ namespace PowerDale
 
             List<SmartMeter> smartMeters = new List<SmartMeter>();
             List<ElectricityReadings> electricityReadings = new List<ElectricityReadings>();
+            electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 11, 05), 15));
+            electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 11, 04), 15));
             electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 11, 03), 15));
-            electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 11, 02), 15));
-            electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 11, 01), 15));
+            electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 02), 15));
+            electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 01), 15));
             electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 31), 15));
             electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 30), 15));
             electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 29), 15));
             electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 28), 15));
             electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 27), 15));
-            electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 26), 15));
-            electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 25), 15));
             smartMeters.Add(new SmartMeter("smart-meter-0", electricityReadings));
             smartMeters.Add(new SmartMeter("smart-meter-1", electricityReadings));
             smartMeters.Add(new SmartMeter("smart-meter-2", electricityReadings));
@@ -40,7 +40,7 @@ namespace PowerDale
             var pricePlans = new List<PricePlan> {
                 new PricePlan{
                     EnergySupplier = suppliers[0],
-                    UnitRate = 10m,
+                    UnitRate = 5m,
                     PeakTimeMultiplier = new List<PeakTimeMultiplier>()
                 },
                 new PricePlan{
@@ -54,19 +54,37 @@ namespace PowerDale
                     PeakTimeMultiplier = new List<PeakTimeMultiplier>()
                 }
             };
-            PricePlan price = new PricePlan();
 
-            FindPricePlan("smart-meter-0", pricePlans);
-            FindPricePlan("smart-meter-1", pricePlans);
-            FindPricePlan("smart-meter-2", pricePlans);
-            FindPricePlan("smart-meter-3", pricePlans);
-            FindPricePlan("smart-meter-4", pricePlans);
-
-            calculateCost(electricityReadings, price);
+            Console.WriteLine("Press Y to view the last week's usage");
+            string input = Console.ReadLine();
+            if (Console.ReadLine().Equals("y"))
+            {
+                Console.WriteLine("Please enter your smart meter id");
+                string idInput = Console.ReadLine();
+                electricityReadings = showLastWeekUsage(idInput);
+            }
+            else
+            {
+                PricePlan price = FindPricePlan("smart-meter-0", pricePlans);
+                decimal Cost = calculateCost(electricityReadings, price);
+                /* Console.WriteLine("The total cost of the smart meter 0 is : " + Cost);
+                 FindPricePlan("smart-meter-1", pricePlans);
+                 decimal Cost1 = calculateCost(electricityReadings, price);
+                 Console.WriteLine("The total cost of the smart meter 1 is : " + Cost1);
+                 FindPricePlan("smart-meter-2", pricePlans);
+                 Cost = calculateCost(electricityReadings, price);
+                 Console.WriteLine("The total cost of the smart meter 2 is : " + Cost);
+                 FindPricePlan("smart-meter-3", pricePlans);
+                 Cost = calculateCost(electricityReadings, price);
+                 Console.WriteLine("The total cost of the smart meter 3 is : " + Cost);
+                 FindPricePlan("smart-meter-4", pricePlans);
+                 Cost = calculateCost(electricityReadings, price);
+                 Console.WriteLine("The total cost of the smart meter 4 is : " + Cost);*/
+            }
         }
 
 
-        static void FindPricePlan(string smartMeterId, List<PricePlan> pricePlans)
+        static PricePlan FindPricePlan(string smartMeterId, List<PricePlan> pricePlans)
         {
             // print price plan which linked to smart meter
             // print supplier name and unit rate
@@ -76,17 +94,18 @@ namespace PowerDale
                 var powerSupplier = seed.SmartMeterToPricePlanAccounts[smartMeterId];
                 Console.WriteLine("The Smart box " + smartMeterId + " is assigned to " +  powerSupplier.Name);
                 var priceplan = pricePlans.Find(e => e.EnergySupplier.Name == powerSupplier.Name);
-                Console.WriteLine("The price plan for " + smartMeterId + "the smartbox is :" +priceplan.UnitRate);
+                return priceplan;
             }
+            return null;
         }
 
-         static decimal calculateCost(List<ElectricityReadings> electricityReadings, PricePlan pricePlan)
-        {
+         static decimal calculateCost(List<ElectricityReadings> electricityReadings, PricePlan price )
+         {
             var average = calculateAverageReading(electricityReadings);
             var timeElapsed = calculateTimeElapsed(electricityReadings);
             var averagedCost = average / timeElapsed;
-            return averagedCost * pricePlan.UnitRate;
-        }
+            return averagedCost * price.UnitRate;
+         }
         static decimal calculateAverageReading(List<ElectricityReadings> electricityReadings)
         {
             var newSummedReadings = electricityReadings.Select(readings => readings.Reading).Aggregate((reading, accumulator) => reading + accumulator);
@@ -94,11 +113,27 @@ namespace PowerDale
             return newSummedReadings / electricityReadings.Count();
         }
          static decimal calculateTimeElapsed(List<ElectricityReadings> electricityReadings)
-        {
+         {
             var first = electricityReadings.Min(reading => reading.Time);
             var last = electricityReadings.Max(reading => reading.Time);
 
             return (decimal)(last - first).TotalHours;
+         }
+
+        static List showLastWeekUsage(string idInput) 
+        {
+            Seed seed = new Seed();
+            if (seed.SmartMeterToPricePlanAccounts.ContainsKey(idInput))
+            {
+               //ar supplierName = seed.SmartMeterToPricePlanAccounts[idInput];
+                MeterReadings readings = new MeterReadings();
+                if(idInput.Equals(readings.SmartMeterId))
+                {
+                    return readings.ElectricityReadings();
+                }
+
+            }
+           
         }
     }
 }
