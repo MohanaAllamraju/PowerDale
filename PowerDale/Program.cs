@@ -71,8 +71,7 @@ namespace PowerDale
                 var powerSupplier = seed.SmartMeterToPricePlanAccounts[idInput];
                 var priceplan = seed.pricePlans.Find(e => e.EnergySupplier.Name == powerSupplier.Name);
                 var lastweekUsage = calculateCost(weekReadings, priceplan);
-                var Console.WriteLine("The usage list for last week is : " + );
-
+                Console.WriteLine("The usage list for last week is : " + lastweekUsage);
             }
         }
     }
