@@ -32,12 +32,12 @@ namespace PowerDale
             }
         }
 
-        public List<PricePlan> pricePlans
+        public List<PricePlan> PricePlans
         {
             get
             {
                 var suppliers = PowerSuppliers;
-                var PricePlans = new List<PricePlan>
+                var pricePlans = new List<PricePlan>
                 {
                     new PricePlan
                     {
@@ -59,7 +59,6 @@ namespace PowerDale
                     }
                 };
                 return pricePlans;
-                
             }
         }
         
@@ -69,16 +68,27 @@ namespace PowerDale
             {
                 List<SmartMeter> smartMeters = new List<SmartMeter>();
                 List<ElectricityReadings> electricityReadings = new List<ElectricityReadings>();
-                electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 11, 05), 1));
-                electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 11, 04), 2));
-                electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 11, 03), 3));
-                electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 02), 4));
-                electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 01), 5));
-                electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 31), 6));
-                electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 30), 7));
-               /* electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 29), 8));
-                electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 28), 15));
-                electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 10, 27), 15));*/
+                List<ElectricityReadings> electricityReadings1 = new List<ElectricityReadings>();
+                List<ElectricityReadings> electricityReadings2 = new List<ElectricityReadings>();
+                List<ElectricityReadings> electricityReadings3 = new List<ElectricityReadings>();
+                List<ElectricityReadings> electricityReadings4 = new List<ElectricityReadings>();
+
+                electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 11, 08), 1));
+                electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 11, 07), 2));
+                electricityReadings.Add(new ElectricityReadings(new DateTime(2021, 11, 06), 3));
+                electricityReadings1.Add(new ElectricityReadings(new DateTime(2021, 11, 05), 4));
+                electricityReadings1.Add(new ElectricityReadings(new DateTime(2021, 11, 04), 5));
+                electricityReadings1.Add(new ElectricityReadings(new DateTime(2021, 11, 03), 6));
+                electricityReadings2.Add(new ElectricityReadings(new DateTime(2021, 11, 02), 7));
+                electricityReadings2.Add(new ElectricityReadings(new DateTime(2021, 11, 01), 8));
+                electricityReadings2.Add(new ElectricityReadings(new DateTime(2021, 10, 31), 15));
+                electricityReadings3.Add(new ElectricityReadings(new DateTime(2021, 10, 30), 15));
+                electricityReadings3.Add(new ElectricityReadings(new DateTime(2021, 09, 29), 15));
+                electricityReadings3.Add(new ElectricityReadings(new DateTime(2021, 08, 27), 15));
+                electricityReadings4.Add(new ElectricityReadings(new DateTime(2021, 07, 20), 15));
+                electricityReadings4.Add(new ElectricityReadings(new DateTime(2021, 07, 19), 15));
+                electricityReadings4.Add(new ElectricityReadings(new DateTime(2021, 07, 27), 15));
+                
                 smartMeters.Add(new SmartMeter("smart-meter-0", electricityReadings));
                 smartMeters.Add(new SmartMeter("smart-meter-1", electricityReadings));
                 smartMeters.Add(new SmartMeter("smart-meter-2", electricityReadings));
