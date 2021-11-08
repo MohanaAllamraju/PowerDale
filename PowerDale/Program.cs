@@ -12,14 +12,15 @@ namespace PowerDale
             Console.WriteLine("Press Y to view the last week's usage");
             if (Console.ReadLine().Equals("y"))
             {
-                PricePlan price = FindPricePlan("smart-meter-0", seed.pricePlans);
-                decimal Cost = calculateCost(seed.smartMeters.Find(e => e.SmartMeterID == "smart-meter-0").ElectricityReadings, price);
-            }
-            else
-            {
                 Console.WriteLine("Please enter your smart meter id");
                 string idInput = Console.ReadLine();
                 showLastWeekUsage(idInput);
+            }
+            else
+            {
+                
+                PricePlan price = FindPricePlan("smart-meter-0", seed.pricePlans);
+                decimal Cost = calculateCost(seed.smartMeters.Find(e => e.SmartMeterID == "smart-meter-0").ElectricityReadings, price);
             }
         }
 
@@ -66,13 +67,11 @@ namespace PowerDale
             Seed seed = new Seed();
             if (seed.SmartMeterToPricePlanAccounts.ContainsKey(idInput))
             {
-                //ar supplierName = seed.SmartMeterToPricePlanAccounts[idInput];
                 var weekReadings = (seed.smartMeters.Find(e => e.SmartMeterID == idInput).ElectricityReadings);
-                List<PricePlan> pricePerWeek = new List<PricePlan>();
                 var powerSupplier = seed.SmartMeterToPricePlanAccounts[idInput];
-                var priceplan = pricePerWeek.Find(e => e.EnergySupplier.Name == powerSupplier.Name);
-                calculateCost(weekReadings, priceplan);
-                //Console.WriteLine("The usage list for last week is : " + weekReadings[].Reading);
+                var priceplan = seed.pricePlans.Find(e => e.EnergySupplier.Name == powerSupplier.Name);
+                var lastweekUsage = calculateCost(weekReadings, priceplan);
+                var Console.WriteLine("The usage list for last week is : " + );
 
             }
         }
