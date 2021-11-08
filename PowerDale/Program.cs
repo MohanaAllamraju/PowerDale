@@ -8,25 +8,20 @@ namespace PowerDale
     {
         static void Main()
         {
-
             Seed seed = new Seed();
-
             Console.WriteLine("Press Y to view the last week's usage");
             if (Console.ReadLine().Equals("y"))
+            {
+                PricePlan price = FindPricePlan("smart-meter-0", seed.pricePlans);
+                decimal Cost = calculateCost(seed.smartMeters.Find(e => e.SmartMeterID == "smart-meter-0").ElectricityReadings, price);
+            }
+            else
             {
                 Console.WriteLine("Please enter your smart meter id");
                 string idInput = Console.ReadLine();
                 showLastWeekUsage(idInput);
             }
-            else
-            {
-                PricePlan price = FindPricePlan("smart-meter-0", seed.pricePlans);
-                decimal Cost = calculateCost(seed.smartMeters.Find(e => e.SmartMeterID == "smart-meter-0").ElectricityReadings, price);
-            }
         }
-
-            
-
 
         static PricePlan FindPricePlan(string smartMeterId, List<PricePlan> pricePlans)
         {
@@ -36,33 +31,35 @@ namespace PowerDale
             if (seed.SmartMeterToPricePlanAccounts.ContainsKey(smartMeterId))
             {
                 var powerSupplier = seed.SmartMeterToPricePlanAccounts[smartMeterId];
-                Console.WriteLine("The Smart box " + smartMeterId + " is assigned to " +  powerSupplier.Name);
+                Console.WriteLine("The Smart box " + smartMeterId + " is assigned to " + powerSupplier.Name);
                 var priceplan = pricePlans.Find(e => e.EnergySupplier.Name == powerSupplier.Name);
+
                 return priceplan;
             }
             return null;
         }
 
-         static decimal calculateCost(List<ElectricityReadings> electricityReadings, PricePlan price )
-         {
+        static decimal calculateCost(List<ElectricityReadings> electricityReadings, PricePlan price)
+        {
             var average = calculateAverageReading(electricityReadings);
             var timeElapsed = calculateTimeElapsed(electricityReadings);
             var averagedCost = average / timeElapsed;
+
             return averagedCost * price.UnitRate;
-         }
+        }
         static decimal calculateAverageReading(List<ElectricityReadings> electricityReadings)
         {
             var newSummedReadings = electricityReadings.Select(readings => readings.Reading).Aggregate((reading, accumulator) => reading + accumulator);
 
             return newSummedReadings / electricityReadings.Count();
         }
-         static decimal calculateTimeElapsed(List<ElectricityReadings> electricityReadings)
-         {
+        static decimal calculateTimeElapsed(List<ElectricityReadings> electricityReadings)
+        {
             var first = electricityReadings.Min(reading => reading.Time);
             var last = electricityReadings.Max(reading => reading.Time);
 
             return (decimal)(last - first).TotalHours;
-         }
+        }
 
         static void showLastWeekUsage(string idInput)
         {
@@ -70,14 +67,15 @@ namespace PowerDale
             if (seed.SmartMeterToPricePlanAccounts.ContainsKey(idInput))
             {
                 //ar supplierName = seed.SmartMeterToPricePlanAccounts[idInput];
-                MeterReadings readings = new MeterReadings();
-                List<ElectricityReadings> weekReadings = new List<ElectricityReadings>();
-                weekReadings = (seed.smartMeters.Find(e => e.SmartMeterID == "smart-meter-0").ElectricityReadings);
-                for (int i = 0; i < weekReadings.Count; i++)
-                {
-                    Console.WriteLine("The usage list for last week is : " + weekReadings[i].Reading);
-                }
+                var weekReadings = (seed.smartMeters.Find(e => e.SmartMeterID == idInput).ElectricityReadings);
+                List<PricePlan> pricePerWeek = new List<PricePlan>();
+                var powerSupplier = seed.SmartMeterToPricePlanAccounts[idInput];
+                var priceplan = pricePerWeek.Find(e => e.EnergySupplier.Name == powerSupplier.Name);
+                calculateCost(weekReadings, priceplan);
+                //Console.WriteLine("The usage list for last week is : " + weekReadings[].Reading);
+
             }
         }
     }
-}
+}  
+
