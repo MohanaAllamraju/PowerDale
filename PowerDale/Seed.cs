@@ -81,13 +81,13 @@ namespace PowerDale
                 electricityReadings1.Add(new ElectricityReadings(new DateTime(2021, 11, 03), 6));
                 electricityReadings2.Add(new ElectricityReadings(new DateTime(2021, 11, 02), 7));
                 electricityReadings2.Add(new ElectricityReadings(new DateTime(2021, 11, 01), 8));
-                electricityReadings2.Add(new ElectricityReadings(new DateTime(2021, 10, 31), 15));
-                electricityReadings3.Add(new ElectricityReadings(new DateTime(2021, 10, 30), 15));
-                electricityReadings3.Add(new ElectricityReadings(new DateTime(2021, 09, 29), 15));
-                electricityReadings3.Add(new ElectricityReadings(new DateTime(2021, 08, 27), 15));
-                electricityReadings4.Add(new ElectricityReadings(new DateTime(2021, 07, 20), 15));
+                electricityReadings2.Add(new ElectricityReadings(new DateTime(2021, 10, 31), 10));
+                electricityReadings3.Add(new ElectricityReadings(new DateTime(2021, 10, 30), 11));
+                electricityReadings3.Add(new ElectricityReadings(new DateTime(2021, 09, 29), 12));
+                electricityReadings3.Add(new ElectricityReadings(new DateTime(2021, 08, 27), 13));
+                electricityReadings4.Add(new ElectricityReadings(new DateTime(2021, 07, 20), 14));
                 electricityReadings4.Add(new ElectricityReadings(new DateTime(2021, 07, 19), 15));
-                electricityReadings4.Add(new ElectricityReadings(new DateTime(2021, 07, 27), 15));
+                electricityReadings4.Add(new ElectricityReadings(new DateTime(2021, 07, 27), 16));
                 
                 smartMeters.Add(new SmartMeter("smart-meter-0", electricityReadings));
                 smartMeters.Add(new SmartMeter("smart-meter-1", electricityReadings));
